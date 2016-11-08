@@ -36,12 +36,14 @@ class RedisInputFormat final : public InputFormatBase {
     /* void set_ns(const std::string& database, const std::string& collection); */
     /* void set_server(const std::string& server); */
     /* void set_query(const mongo::Query& query); */
-    /* virtual bool is_setup() const; */
+    virtual bool is_setup() const;
 
     virtual bool next(RecordT& ref);
+    void test();
     void ask_split();
     void read();
     void send_end();
+    
 
    /* protected: */
     /* bool need_auth_ = false; */

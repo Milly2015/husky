@@ -16,6 +16,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 /* #include "mongo/bson/bson.h" */
 /* #include "mongo/client/dbclient.h" */
@@ -45,7 +46,9 @@ RedisInputFormat::RedisInputFormat() {
     /* is_setup_ = RedisInputFormatSetUp::NotSetUp; */
 }
 
-RedisInputFormat::~RedisInputFormat() {} 
+RedisInputFormat::~RedisInputFormat() {
+    std::cout<<"Here is ~RedisInputFormat()"<<std::endl;
+} 
 /* { records_vector_.clear(); } */
 
 /* void RedisInputFormat::set_ns(const std::string& database, const std::string& collection) { */
@@ -73,6 +76,11 @@ RedisInputFormat::~RedisInputFormat() {}
 /* } */
 
 /* bool RedisInputFormat::is_setup() const { return !(is_setup_ ^ RedisInputFormatSetUp::AllSetUp); } */
+bool RedisInputFormat::is_setup() const { return is_setup_; }
+
+void RedisInputFormat::test() {
+    std::cout<<"test(): set = "<<is_setup_<<std::endl;
+}
 
 void RedisInputFormat::ask_split() {
     /* BinStream question; */

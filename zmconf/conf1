@@ -1,0 +1,15 @@
+master_host=proj10
+master_port=50000
+comm_port=50001
+
+hdfs_namenode=proj10
+hdfs_namenode_port=9000
+
+serve=0
+
+[worker]
+info=proj5:3
+info=proj6:3
+info=proj7:3
+info=proj8:3
+info=proj9:3

@@ -26,6 +26,7 @@
 //#include "io/input/mongodb_inputformat.hpp"
 #include "io/input/redis_inputformat.hpp"
 #include "lib/aggregator_factory.hpp"
+#include <iostream> 
 
 class Word {
    public:
@@ -48,7 +49,9 @@ void wc() {
     // infmt.set_server(husky::Context::get_param("mongo_server"));
     // infmt.set_ns(husky::Context::get_param("mongo_db"), husky::Context::get_param("mongo_collection"));
     // infmt.set_query("");
+    std::cout<<"Hello from wc()"<<std::endl;
     husky::io::RedisInputFormat infmt;
+    infmt.test();
     /* infmt.set_server(husky::Context::get_param("redis_server")); */
     /* infmt.set_ns(husky::Context::get_param("redis_db"), husky::Context::get_param("redis_collection")); */
     /* infmt.set_query(""); */
@@ -111,6 +114,7 @@ void wc() {
 int main(int argc, char** argv) {
     std::vector<std::string> args;
     args.push_back("redis_server");
+    std::cout<<"After args.push_back in main()"<<std::endl;
     /* args.push_back("redis_db"); */
     /* args.push_back("redis_collection"); */
     //job_runner.hpp

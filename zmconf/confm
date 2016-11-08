@@ -1,0 +1,23 @@
+# Required
+master_host=proj10
+master_port=50000
+comm_port=50001
+
+# Optional
+hdfs_namenode=proj10
+hdfs_namenode_port=9000
+input=/tmp/toy-adj
+mongo_server=proj5:20001
+mongo_db=hdb
+mongo_collection=enwiki
+
+# For Master
+serve=0
+
+# Session for worker information
+[worker]
+info=proj5:20
+info=proj6:20
+info=proj7:20
+info=proj8:20
+info=proj9:20
