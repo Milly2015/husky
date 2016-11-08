@@ -74,64 +74,97 @@ RedisInputFormat::~RedisInputFormat() {}
 
 /* bool RedisInputFormat::is_setup() const { return !(is_setup_ ^ RedisInputFormatSetUp::AllSetUp); } */
 
-/* void RedisInputFormat::ask_split() { */
-/*     /1* BinStream question; *1/ */
-/*     /1* question << need_auth_; *1/ */
-/*     /1* if (need_auth_) *1/ */
-/*     /1*     question << server_ << ns_ << username_ << password_ << husky::Context::get_param("hostname"); *1/ */
-/*     /1* else *1/ */
-/*     /1*     question << server_ << ns_ << husky::Context::get_param("hostname"); *1/ */
+void RedisInputFormat::ask_split() {
+    /* BinStream question; */
+    /* question << need_auth_; */
+    /* if (need_auth_) */
+    /*     question << server_ << ns_ << username_ << password_ << husky::Context::get_param("hostname"); */
+    /* else */
+    /*     question << server_ << ns_ << husky::Context::get_param("hostname"); */
 
-/*     /1* BinStream answer = husky::Context::get_coordinator().ask_master(question, husky::TYPE_MONGODB_REQ); *1/ */
-/*     /1* answer >> split_; *1/ */
-/*     return; */
-/* } */
+    /* BinStream answer = husky::Context::get_coordinator().ask_master(question, husky::TYPE_MONGODB_REQ); */
+    /* answer >> split_; */
+    
+    /* // for redis */
+    /* BinStream question; */
+    /* question << server_ << ns_ << husky::Context::get_param("hostname"); */
 
-/* void RedisInputFormat::read() { */
-/*     /1* if (!records_vector_.empty()) *1/ */
-/*     /1*     records_vector_.clear(); *1/ */
+    /* BinStream answer = husky::Context::get_coordinator().ask_master(question, husky::TYPE_REDIS_REQ); */
+    /* answer >> split_; */
+    
+    return;
+}
 
-/*     /1* mongo::DBClientConnection client; *1/ */
-/*     /1* client.connect(split_.get_input_uri(), error_msg_); *1/ */
+void RedisInputFormat::read() {
+    /* if (!records_vector_.empty()) */
+    /*     records_vector_.clear(); */
 
-/*     /1* if (need_auth_) *1/ */
-/*     /1*     client.auth(database_, username_, password_, error_msg_); *1/ */
+    /* mongo::DBClientConnection client; */
+    /* client.connect(split_.get_input_uri(), error_msg_); */
 
-/*     /1* query_.minKey(mongo::fromjson(split_.get_min())); *1/ */
-/*     /1* query_.maxKey(mongo::fromjson(split_.get_max())); *1/ */
+    /* if (need_auth_) */
+    /*     client.auth(database_, username_, password_, error_msg_); */
 
-/*     /1* auto cursor = client.query(split_.get_ns(), query_); *1/ */
-/*     /1* while (cursor->more()) { *1/ */
-/*     /1*     mongo::BSONObj o = cursor->next(); *1/ */
-/*     /1*     records_vector_.push_back(o.jsonString()); *1/ */
-/*     /1* } *1/ */
+    /* query_.minKey(mongo::fromjson(split_.get_min())); */
+    /* query_.maxKey(mongo::fromjson(split_.get_max())); */
 
-/*     return; */
-/* } */
+    /* auto cursor = client.query(split_.get_ns(), query_); */
+    /* while (cursor->more()) { */
+    /*     mongo::BSONObj o = cursor->next(); */
+    /*     records_vector_.push_back(o.jsonString()); */
+    /* } */
+    
+    /* // for redis */
+    /* if (!records_vector_.empty()) */
+    /*     records_vector_.clear(); */
 
-/* void RedisInputFormat::send_end() { */
+    return;
+}
+
+void RedisInputFormat::send_end() {
 /*     /1* BinStream question; *1/ */
 /*     /1* question << split_; *1/ */
 /*     /1* husky::Context::get_coordinator().ask_master(question, husky::TYPE_MONGODB_END_REQ); *1/ */
 /*     return; */
-/* } */
+    /* // for redis */
+    /* BinStream question; */
+    /* question << split_; */
+    /* husky::Context::get_coordinator().ask_master(question, husky::TYPE_REDIS_END_REQ); */
+    return;
+}
 
-/* bool RedisInputFormat::next(RecordT& ref) { */
-/*     /1* while (records_vector_.empty()) { *1/ */
-/*     /1*     ask_split(); *1/ */
-/*     /1*     if (!split_.is_valid()) *1/ */
-/*     /1*         return false; *1/ */
-/*     /1*     read(); *1/ */
-/*     /1*     if (records_vector_.empty()) *1/ */
-/*     /1*         send_end(); *1/ */
-/*     /1* } *1/ */
+bool RedisInputFormat::next(RecordT& ref) {
+    /* while (records_vector_.empty()) { */
+    /*     ask_split(); */
+    /*     if (!split_.is_valid()) */
+    /*         return false; */
+    /*     read(); */
+    /*     if (records_vector_.empty()) */
+    /*         send_end(); */
+    /* } */
 
-/*     /1* ref = records_vector_.back(); *1/ */
-/*     /1* records_vector_.pop_back(); *1/ */
-/*     /1* if (records_vector_.empty()) *1/ */
-/*     /1*     send_end(); *1/ */
-/*     return true; */
-/* } */
+    /* ref = records_vector_.back(); */
+    /* records_vector_.pop_back(); */
+    /* if (records_vector_.empty()) */
+    /*     send_end(); */
+
+    /* // for redis */
+    /* while (records_vector_.empty()) { */
+    /*     ask_split(); */
+    /*     if (!split_.is_valid()) */
+    /*         return false; */
+    /*     read(); */
+    /*     if (records_vector_.empty()) */
+    /*         send_end(); */
+    /* } */
+
+    /* ref = records_vector_.back(); */
+    /* records_vector_.pop_back(); */
+    /* if (records_vector_.empty()) */
+    /*     send_end(); */
+    
+    return true;
+}
 
 }  // namespace io
 }  // namespace husky

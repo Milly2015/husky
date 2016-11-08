@@ -18,10 +18,10 @@
 #include <vector>
 
 /* #include "mongo/client/dbclient.h" */
-#include "hiredis.h"
-
 #include "io/input/inputformat_base.hpp"
-#include "io/input/mongodb_split.hpp"
+/* #include "io/input/mongodb_split.hpp" */
+
+#include "hiredis.h"
 
 namespace husky {
 namespace io {
@@ -38,10 +38,10 @@ class RedisInputFormat final : public InputFormatBase {
     /* void set_query(const mongo::Query& query); */
     /* virtual bool is_setup() const; */
 
-    /* virtual bool next(RecordT& ref); */
-    /* void ask_split(); */
-    /* void read(); */
-    /* void send_end(); */
+    virtual bool next(RecordT& ref);
+    void ask_split();
+    void read();
+    void send_end();
 
    /* protected: */
     /* bool need_auth_ = false; */
