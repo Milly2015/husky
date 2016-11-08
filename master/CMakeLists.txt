@@ -25,10 +25,16 @@ if(MONGOCLIENT_FOUND)
     add_definitions(-DWITH_MONGODB)
 endif(MONGOCLIENT_FOUND)
 
+if(REDISCLIENT_FOUND)
+    include_directories(${REDISCLIENT_INCLUDE_DIR})
+    add_definitions(-DWITH_REDIS)
+endif(REDISCLIENT_FOUND)
+
 set(husky husky-lib husky-io husky-core husky-base)
 
 # Master
-add_executable(Master master.cpp hdfs_assigner.cpp mongodb_assigner.cpp nfs_assigner.cpp progress_tracker.cpp)
+# add_executable(Master master.cpp hdfs_assigner.cpp mongodb_assigner.cpp nfs_assigner.cpp progress_tracker.cpp)
+add_executable(Master master.cpp hdfs_assigner.cpp mongodb_assigner.cpp nfs_assigner.cpp progress_tracker.cpp redis_assigner.cpp)
 target_link_libraries(Master ${husky})
 target_link_libraries(Master ${EXTERNAL_LIB})
 set_property(TARGET Master PROPERTY CXX_STANDARD 14)

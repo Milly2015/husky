@@ -86,4 +86,7 @@ const uint32_t TYPE_JOIN = 0x47d69ed5;
 const uint32_t TYPE_EXIT = 0x47d79fd5;
 const uint32_t TYPE_GET_HASH_RING = 0x48d693d5;
 
+const uint32_t TYPE_REDIS_REQ = 0x11111111;
+const uint32_t TYPE_REDIS_END_REQ = 0x11111112;
+
 }  // namespace husky
