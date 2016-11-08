@@ -32,29 +32,29 @@ class RedisInputFormat final : public InputFormatBase {
     RedisInputFormat();
     virtual ~RedisInputFormat();
 
-    void set_auth(const std::string& username, const std::string& password);
-    void set_ns(const std::string& database, const std::string& collection);
-    void set_server(const std::string& server);
-    void set_query(const mongo::Query& query);
-    virtual bool is_setup() const;
+    /* void set_auth(const std::string& username, const std::string& password); */
+    /* void set_ns(const std::string& database, const std::string& collection); */
+    /* void set_server(const std::string& server); */
+    /* void set_query(const mongo::Query& query); */
+    /* virtual bool is_setup() const; */
 
-    virtual bool next(RecordT& ref);
-    void ask_split();
-    void read();
-    void send_end();
+    /* virtual bool next(RecordT& ref); */
+    /* void ask_split(); */
+    /* void read(); */
+    /* void send_end(); */
 
-   protected:
-    bool need_auth_ = false;
-    /* MongoDBSplit split_; */
-    std::string collection_;
-    std::string database_;
-    std::string error_msg_;
-    std::string ns_;
-    std::string password_;
-    std::string server_;
-    std::string username_;
-    mongo::Query query_;
-    std::vector<RecordT> records_vector_;
+   /* protected: */
+    /* bool need_auth_ = false; */
+    /* /1* MongoDBSplit split_; *1/ */
+    /* std::string collection_; */
+    /* std::string database_; */
+    /* std::string error_msg_; */
+    /* std::string ns_; */
+    /* std::string password_; */
+    /* std::string server_; */
+    /* std::string username_; */
+    /* mongo::Query query_; */
+    /* std::vector<RecordT> records_vector_; */
 };
 
 }  // namespace io
