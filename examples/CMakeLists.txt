@@ -42,10 +42,10 @@ target_link_libraries(WordCountMongo ${EXTERNAL_LIB})
 set_property(TARGET WordCountMongo PROPERTY CXX_STANDARD 14)
 
 # WordCountRedis
- add_executable(WordCountRedis wc_mr_redis.cpp)
- target_link_libraries(WordCountRedis ${husky})
- target_link_libraries(WordCountRedis ${EXTERNAL_LIB})
- set_property(TARGET WordCountRedis PROPERTY CXX_STANDARD 14)
+add_executable(WordCountRedis wc_mr_redis.cpp)
+target_link_libraries(WordCountRedis ${husky})
+target_link_libraries(WordCountRedis ${EXTERNAL_LIB})
+set_property(TARGET WordCountRedis PROPERTY CXX_STANDARD 14)
 
 # WordCountFlume
 add_executable(WordCountFlume wc_mr_flume.cpp)
