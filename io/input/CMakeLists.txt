@@ -33,7 +33,7 @@ endif(MONGOCLIENT_FOUND)
 if(REDISCLIENT_FOUND)
     include_directories(${REDISCLIENT_INCLUDE_DIR})
     add_definitions(-DWITH_REDIS)
-    set(input_cpps ${input_cpps} redis_inputformat.cpp)
+    set(input_cpps ${input_cpps} redis_split.cpp redis_inputformat.cpp)
 endif(REDISCLIENT_FOUND)
 
 if(THRIFT_FOUND)

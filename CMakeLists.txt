@@ -15,6 +15,8 @@
 
 cmake_minimum_required(VERSION 3.0.2)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
@@ -22,6 +24,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -w")
 
 set(dep_DIR ${PROJECT_SOURCE_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+
+set(HIREDIS_LOCATION "" CACHE STRING "the location of hiredis")
 
 find_package(dep)
 find_package(Threads)

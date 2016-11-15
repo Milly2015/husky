@@ -38,7 +38,7 @@ void RedisSplit::set_hostport(const std::string& hostport) {
 }
 
 void RedisSplit::set_keyset(const std::vector<keyType> keyset) {
-    std::copy (keyset, keyset+keyset.size(), keyset_.begin());    
+    std::copy (keyset.begin(), keyset.end(), keyset_.begin());    
 }
 
 BinStream& operator<<(BinStream& stream, RedisSplit& split) {

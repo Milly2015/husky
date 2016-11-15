@@ -18,12 +18,9 @@
 #include <vector>
 
 #include "boost/tokenizer.hpp"
-//#include "mongo/bson/bson.h"
-//#include "mongo/client/dbclient.h"
 
 #include "base/serialization.hpp"
 #include "core/engine.hpp"
-//#include "io/input/mongodb_inputformat.hpp"
 #include "io/input/redis_inputformat.hpp"
 #include "lib/aggregator_factory.hpp"
 #include <iostream> 
@@ -52,7 +49,6 @@ void wc() {
     /* std::cout<<"Hello from wc()"<<std::endl; */
     husky::io::RedisInputFormat infmt;
     infmt.set_server(husky::Context::get_param("redis_server"));
-    infmt.set_querykeyset(husky::Context::get_param("redis_querykeyset"));
     /* infmt.set_query(""); */
     /* infmt.test(); */
     /* infmt.set_server(husky::Context::get_param("redis_server")); */
@@ -117,7 +113,6 @@ void wc() {
 int main(int argc, char** argv) {
     std::vector<std::string> args;
     args.push_back("redis_server");
-    args.push_back("redis_querykeyset");
     /* std::cout<<"After args.push_back in main()"<<std::endl; */
     /* args.push_back("redis_db"); */
     /* args.push_back("redis_collection"); */

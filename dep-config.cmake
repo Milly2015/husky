@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 ### ZeroMQ ###
 
 set(ZMQ_FIND_REQUIRED true)
@@ -96,20 +95,16 @@ endif(WITHOUT_MONGODB)
 
 ### Redis ###
 
-find_path(REDISCLIENT_INCLUDE_DIR NAMES hiredis.h)
-find_library(REDISCLIENT_LIBRARY NAMES libhiredis.so)
-if (REDISCLIENT_INCLUDE_DIR AND REDISCLIENT_LIBRARY)
-    set(REDISCLIENT_FOUND true)
-endif(REDISCLIENT_INCLUDE_DIR AND REDISCLIENT_LIBRARY)
-if(REDISCLIENT_FOUND)
+find_package(Redis)
+if(HIREDIS_FOUND)
     message (STATUS "Found hiredis:")
-    message (STATUS "  (Headers)        ${REDISCLIENT_INCLUDE_DIR}")
-    message (STATUS "  (Library)        ${REDISCLIENT_LIBRARY}")
-else(REDISCLIENT_FOUND)
+    message (STATUS "  (Headers)        ${HIREDIS_INCLUDE_DIR}")
+    message (STATUS "  (Library)        ${HIREDIS_LIBRARIES}")
+else(HIREDIS_FOUND)
     message (STATUS "Could NOT find hiredis")
-endif(REDISCLIENT_FOUND)
+endif(HIREDIS_FOUND)
 if(WITHOUT_REDIS)
-    unset(REDISCLIENT_FOUND)
+    unset(HIREDIS_FOUND)
     message(STATUS "Not using hiredis due to WITHOUT_REDIS option")
 endif(WITHOUT_REDIS)
 
