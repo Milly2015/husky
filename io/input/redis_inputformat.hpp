@@ -17,9 +17,8 @@
 #include <string>
 #include <vector>
 
-/* #include "mongo/client/dbclient.h" */
 #include "io/input/inputformat_base.hpp"
-/* #include "io/input/mongodb_split.hpp" */
+#include "io/input/redis_split.hpp"
 
 #include "hiredis.h"
 
@@ -28,35 +27,23 @@ namespace io {
 
 class RedisInputFormat final : public InputFormatBase {
    public:
-    typedef std::string RecordT;
+    typedef std::string ValueT;
     RedisInputFormat();
     virtual ~RedisInputFormat();
 
-    /* void set_auth(const std::string& username, const std::string& password); */
-    /* void set_ns(const std::string& database, const std::string& collection); */
-    /* void set_server(const std::string& server); */
-    /* void set_query(const mongo::Query& query); */
-    virtual bool is_setup() const;
+    bool is_setup();
+    void set_server(const std::string& server);
 
-    virtual bool next(RecordT& ref);
-    void test();
     void ask_split();
     void read();
-    void send_end();
-    
+    /* virtual bool next(keyT& ref); */
+    /* void send_end(); */
 
-   /* protected: */
-    /* bool need_auth_ = false; */
-    /* /1* MongoDBSplit split_; *1/ */
-    /* std::string collection_; */
-    /* std::string database_; */
-    /* std::string error_msg_; */
-    /* std::string ns_; */
-    /* std::string password_; */
-    /* std::string server_; */
-    /* std::string username_; */
-    /* mongo::Query query_; */
-    /* std::vector<RecordT> records_vector_; */
+   protected:
+    RedisSplit split_;
+    std::string server_;
+    std::vector<ValueT> values_vector_;
+   
 };
 
 }  // namespace io

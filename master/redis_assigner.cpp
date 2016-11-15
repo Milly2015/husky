@@ -88,20 +88,36 @@ redisContext * RedisAssigner::initCtx(const char *ip, int port, const struct tim
     return redisConnectWithTimeout(ip, port, tv);
 }
 
-void RedisAssigner::master_redis_req_handler() {
-    auto& master = Master::get_instance();
-    auto master_socket = master.get_socket();
-}
-
-void RedisAssigner::master_redis_req_end_handler() {
-    auto& master = Master::get_instance();
-    auto master_socket = master.get_socket();
+RedisAssigner::~RedisAssigner() {
+    _keysetmap.clear();
 }
 
 void RedisAssigner::master_setup_handler() {}
 
-RedisAssigner::~RedisAssigner() {
+void RedisAssigner::master_redis_req_handler() {
+    auto& master = Master::get_instance();
+    auto master_socket = master.get_socket();
+    std::string hostname;
+    BinStream stream = zmq_recv_binstream(master_socket.get());
+    stream >> hostname;
+    RedisSplit ret = answer(hostname);
+    stream.clear();
+    stream << ret;
+
+    zmq_sendmore_string(master_socket.get(), master.get_cur_client());
+    zmq_sendmore_dummy(master_socket.get());
+    zmq_send_binstream(master_socket.get(), stream);
+    /* base::log_msg(host + " => " + ret.get_hostip()); */
 }
+
+RedisSplit RedisAssigner::answer(const std::string& hostname) {
+    RedisSplit ret;
+    ret.set_hostip(_masterredishost);
+    ret.set_hostport(_masterredisport);
+    ret.set_keyset(_keysetmap.pop_back());
+    return ret;
+
+} 
 
 void RedisAssigner::dumpkeymap() {
     for(auto iterator = _keysetmap.begin(); iterator != _keysetmap.end(); iterator++){

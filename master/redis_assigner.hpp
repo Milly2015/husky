@@ -19,23 +19,28 @@
 #include <string>
 
 #include "hiredis.h"
+#include "io/input/redis_value.hpp"
 
 namespace husky {
 
     class RedisAssigner {
     public :
         RedisAssigner();
-        void master_redis_req_handler();
-        void master_redis_req_end_handler();
-        void master_setup_handler();
         virtual ~RedisAssigner();
+        void master_setup_handler();
+        void master_redis_req_handler();
 
         redisContext *initCtx(const char *ip, int port, const struct timeval tv);
+        std::string answer(const std::string&, const std::string&);
         void dumpkeymap();
+
     private :
         std::string _masterredishost;
-        int _masterredisport;
+        std::string _masterredisport;
+        // redisContext is where hiredis holds state for a connection
         redisContext* _rContext;
+        
+        // host_IP - the set of key on it
         std::map<std::string, std::set<std::string>> _keysetmap;
 
     };
