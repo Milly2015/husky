@@ -79,12 +79,10 @@ RedisAssigner::RedisAssigner() {
 
     Master::get_instance().register_main_handler(TYPE_REDIS_REQ,
             std::bind(&RedisAssigner::master_redis_req_handler, this));
-    Master::get_instance().register_main_handler(TYPE_REDIS_END_REQ,
-            std::bind(&RedisAssigner::master_redis_req_end_handler, this));
     Master::get_instance().register_setup_handler(std::bind(&RedisAssigner::master_setup_handler, this));
 }
 
-redisContext * RedisAssigner::initCtx(const char *ip, int port, const struct timeval tv) {
+redisContext* RedisAssigner::initCtx(const char *ip, int port, const struct timeval tv) {
     return redisConnectWithTimeout(ip, port, tv);
 }
 

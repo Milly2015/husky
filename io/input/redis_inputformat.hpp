@@ -31,7 +31,7 @@ class RedisInputFormat final : public InputFormatBase {
     RedisInputFormat();
     virtual ~RedisInputFormat();
 
-    bool is_setup();
+    virtual bool is_setup() const;
     void set_server(const std::string& server);
 
     void ask_split();

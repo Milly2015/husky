@@ -56,14 +56,14 @@ void RedisInputFormat::ask_split() {
 void RedisInputFormat::read() {
     // for redis
     std::string readhostip = split_.get_hostip();
-    int readhostport = std::stoi(split_.get_hostport())
+    int readhostport = std::stoi(split_.get_hostport());
     struct timeval timeout = {1, 500000};
     redisContext* rContext = redisConnectWithTimeout(readhostip.c_str(), readhostport, timeout);
 
     if(rContext == NULL || rContext->err) {
         if(rContext) {
-            std::cerr<<"Connection error: "<<_rContext->errstr<<std::endl;
-            redisFree(_rContext);
+            std::cerr<<"Connection error: "<<rContext->errstr<<std::endl;
+            redisFree(rContext);
         } else {
             std::cerr<<"Connection error : can't allocate redis context"<<std::endl;
         }
@@ -72,8 +72,8 @@ void RedisInputFormat::read() {
 
     redisReply *reply; 
     // read value for each key
-    for(std::vector<std::string>::iterator it = split_.keyset.begin(); it != split_.keyset.end(); ++it) { 
-        reply = redisCommand(rContext,"GET %s", *it); 
+    for(auto it = split_.get_keyset().begin(); it != split_.get_keyset().end(); ++it) { 
+        reply = (redisReply *)redisCommand(rContext,"GET %s", *it); 
         values_vector_.push_back(reply->str); 
     }
    

@@ -19,7 +19,7 @@
 #include <string>
 
 #include "hiredis.h"
-#include "io/input/redis_value.hpp"
+#include "io/input/redis_split.hpp"
 
 namespace husky {
 
@@ -30,8 +30,8 @@ namespace husky {
         void master_setup_handler();
         void master_redis_req_handler();
 
-        redisContext *initCtx(const char *ip, int port, const struct timeval tv);
-        std::string answer(const std::string&, const std::string&);
+        redisContext* initCtx(const char *ip, int port, const struct timeval tv);
+        RedisSplit answer(const std::string&, const std::string&);
         void dumpkeymap();
 
     private :
