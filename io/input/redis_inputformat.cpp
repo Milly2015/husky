@@ -18,7 +18,7 @@
 #include <vector>
 #include <iostream>
 
-#include "hiredis.h"
+#include <hiredis.h>
 
 #include "base/serialization.hpp"
 #include "core/constants.hpp"

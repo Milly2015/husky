@@ -20,7 +20,7 @@
 #include "io/input/inputformat_base.hpp"
 #include "io/input/redis_split.hpp"
 
-#include "hiredis.h"
+#include <hiredis.h>
 
 namespace husky {
 namespace io {
