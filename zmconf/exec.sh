@@ -5,7 +5,8 @@
 # worker2
 # worker3
 #
-MACHINE_CFG=/data/opt/tmp/machine.cfg
+#MACHINE_CFG=/data/opt/tmp/machine.cfg
+MACHINE_CFG=/home/1155074923/husky/zmconf/machine.cfg
 sid=`whoami`
 
 cp $1 /data/opt/tmp/$sid/

@@ -17,6 +17,7 @@
 #include "master/redis_assigner.hpp"
 
 #include <cstring>
+#include <string>
 #include <iostream>
 #include <sstream>
 
@@ -38,7 +39,7 @@ RedisAssigner::RedisAssigner() {
     _masterredishost="192.168.50.10";
     _masterredisport=6379;
     struct timeval timeout = {1, 500000};
-    _rContext = initCtx(_masterredishost.c_str(), _masterredisport, timeout);
+    _rContext = initCtx(_masterredishost.c_str(), std::stoi(_masterredisport), timeout);
 
     if(_rContext == NULL || _rContext->err) {
         if(_rContext) {
@@ -98,7 +99,7 @@ void RedisAssigner::master_redis_req_handler() {
     std::string hostname;
     BinStream stream = zmq_recv_binstream(master_socket.get());
     stream >> hostname;
-    RedisSplit ret = answer(hostname);
+    husky::io::RedisSplit ret = answer(hostname);
     stream.clear();
     stream << ret;
 
@@ -108,8 +109,8 @@ void RedisAssigner::master_redis_req_handler() {
     /* base::log_msg(host + " => " + ret.get_hostip()); */
 }
 
-RedisSplit RedisAssigner::answer(const std::string& hostname) {
-    RedisSplit ret;
+husky::io::RedisSplit RedisAssigner::answer(const std::string& hostname) {
+    husky::io::RedisSplit ret;
     ret.set_hostip(_masterredishost);
     ret.set_hostport(_masterredisport);
     ret.set_keyset(_keysetmap.pop_back());

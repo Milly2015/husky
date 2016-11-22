@@ -36,6 +36,7 @@ class RedisInputFormat final : public InputFormatBase {
 
     void ask_split();
     void read();
+    void test();
     /* virtual bool next(keyT& ref); */
     /* void send_end(); */
 

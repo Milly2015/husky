@@ -40,6 +40,7 @@ bool RedisInputFormat::is_setup() const { return true; }
 
 void RedisInputFormat::set_server(const std::string& server) {
     server_ = server;
+    std::cout<<"server_ = "<<server_<<std::endl;
 }
 
 void RedisInputFormat::ask_split() {
@@ -80,6 +81,9 @@ void RedisInputFormat::read() {
     freeReplyObject(reply);
     redisFree(rContext);
     return;
+}
+void RedisInputFormat::test() {
+    std::cout<<"Here is test() in inputformat!"<<std::endl;
 }
 
 /* void RedisInputFormat::send_end() { */

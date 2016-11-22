@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#pragma once
+
 #ifdef WITH_REDIS
 
 #include <map>
@@ -31,7 +33,7 @@ namespace husky {
         void master_redis_req_handler();
 
         redisContext* initCtx(const char *ip, int port, const struct timeval tv);
-        RedisSplit answer(const std::string&, const std::string&);
+        husky::io::RedisSplit answer(const std::string&);
         void dumpkeymap();
 
     private :

@@ -50,7 +50,7 @@ void wc() {
     husky::io::RedisInputFormat infmt;
     infmt.set_server(husky::Context::get_param("redis_server"));
     /* infmt.set_query(""); */
-    /* infmt.test(); */
+    infmt.test();
     /* infmt.set_server(husky::Context::get_param("redis_server")); */
     /* infmt.set_ns(husky::Context::get_param("redis_db"), husky::Context::get_param("redis_collection")); */
     /* infmt.set_query(""); */
@@ -113,7 +113,7 @@ void wc() {
 int main(int argc, char** argv) {
     std::vector<std::string> args;
     args.push_back("redis_server");
-    /* std::cout<<"After args.push_back in main()"<<std::endl; */
+    std::cout<<"After args.push_back in main()"<<std::endl;
     /* args.push_back("redis_db"); */
     /* args.push_back("redis_collection"); */
     //job_runner.hpp
